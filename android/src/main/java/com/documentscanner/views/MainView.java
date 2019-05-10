@@ -104,12 +104,21 @@ public class MainView extends FrameLayout{
     public void setManualOnly(boolean manualOnly){
         view.setManualOnly(manualOnly);
     }
+
+    public void setEnableCapture(boolean enableCapture){
+      view.setEnableCapture(enableCapture);
+    }
+
     public void setRemoveGrayScale(boolean grayscale) {
         view.setRemoveGrayScale(grayscale);
     }
 
     public void capture() {
         view.capture();
+    }
+
+    public void refreshCamera() {
+        view.refreshCamera();
     }
 
     private void focus() {

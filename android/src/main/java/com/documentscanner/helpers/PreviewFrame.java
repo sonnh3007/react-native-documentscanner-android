@@ -7,17 +7,34 @@ import org.opencv.core.Mat;
  */
 public class PreviewFrame {
 
-    private final boolean previewOnly;
-    private Mat frame;
-    private boolean autoMode;
+  private final boolean previewOnly;
+  private Mat frame;
+  private boolean autoMode;
+  private boolean enableCapture;
+  private boolean manualCapture;
 
-    public PreviewFrame(Mat frame , boolean autoMode , boolean previewOnly ) {
-        this.frame = frame;
-        this.autoMode = autoMode;
-        this.previewOnly = previewOnly;
-    }
+  public PreviewFrame(Mat frame , boolean autoMode , boolean previewOnly) {
+      this.frame = frame;
+      this.autoMode = autoMode;
+      this.previewOnly = previewOnly;
+  }
 
-    public Mat getFrame() {
+  public PreviewFrame(Mat frame , boolean autoMode , boolean previewOnly, boolean enableCapture) {
+    this.frame = frame;
+    this.autoMode = autoMode;
+    this.previewOnly = previewOnly;
+    this.enableCapture = enableCapture;
+  }
+
+  public PreviewFrame(Mat frame , boolean autoMode , boolean previewOnly, boolean enableCapture, boolean manualCapture) {
+    this.frame = frame;
+    this.autoMode = autoMode;
+    this.previewOnly = previewOnly;
+    this.enableCapture = enableCapture;
+    this.manualCapture = manualCapture;
+  }
+
+  public Mat getFrame() {
         return frame;
     }
 
@@ -36,4 +53,20 @@ public class PreviewFrame {
     public void setAutoMode(boolean autoMode) {
         this.autoMode = autoMode;
     }
+
+  public boolean isEnableCapture() {
+    return enableCapture;
+  }
+
+  public void setEnableCapture(boolean enableCapture) {
+    this.enableCapture = enableCapture;
+  }
+
+  public boolean isManualCapture() {
+    return manualCapture;
+  }
+
+  public void setManualCapture(boolean manualCapture) {
+    this.manualCapture = manualCapture;
+  }
 }

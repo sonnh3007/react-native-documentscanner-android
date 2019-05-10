@@ -49,6 +49,10 @@ class Scanner extends PureComponent{
     CameraManager.capture();
   }
 
+  refreshCamera = ()=>{
+    CameraManager.refreshCamera();
+  }
+
   render() {
     return <DocumentScanner {...this.props} />;
   }

@@ -83,6 +83,11 @@ public class DocumentScannerViewManager extends ViewGroupManager<MainView>{
         view.setManualOnly(manualOnly);
     }
 
+    @ReactProp(name="enableCapture", defaultBoolean = true)
+    public void setEnableCapture(MainView view, Boolean enableCapture){
+    view.setEnableCapture(enableCapture);
+  }
+
     @ReactProp(name="brightness", defaultDouble = 10)
     public void setBrightness(MainView view, double brightness){
         view.setBrightness(brightness);

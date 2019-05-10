@@ -33,4 +33,10 @@ public class DocumentScannerModule extends ReactContextBaseJavaModule{
         MainView view = MainView.getInstance();
         view.capture();
     }
+
+    @ReactMethod
+    public void refreshCamera(){
+      MainView view = MainView.getInstance();
+      view.refreshCamera();
+    }
 }

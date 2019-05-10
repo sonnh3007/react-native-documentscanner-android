@@ -154,15 +154,19 @@ public class ImageProcessor extends Handler {
         boolean previewOnly = previewFrame.isPreviewOnly();
         boolean focused = mMainActivity.isFocused();
 
-        if ( detectPreviewDocument(frame) && focused ) {
-            numOfSquares ++;
-            if(numOfSquares == numOfRectangles) {
-                mMainActivity.requestPicture();
-                mMainActivity.waitSpinnerVisible();
-                numOfSquares = 0;
-            }
-        }else{
-            numOfSquares = 0;
+        if (previewFrame.isEnableCapture()) {
+          if ( detectPreviewDocument(frame) && focused ) {
+              numOfSquares ++;
+              if (!previewFrame.isManualCapture()) {
+                if (numOfSquares == numOfRectangles) {
+                  mMainActivity.requestPicture();
+                  //mMainActivity.waitSpinnerVisible();
+                  numOfSquares = 0;
+                }
+              }
+          }else{
+              numOfSquares = 0;
+          }
         }
 
         frame.release();
@@ -192,7 +196,7 @@ public class ImageProcessor extends Handler {
 
         mMainActivity.setImageProcessorBusy(false);
         mMainActivity.setAttemptToFocus(false);
-        mMainActivity.waitSpinnerInvisible();
+//        mMainActivity.waitSpinnerInvisible();
 
     }
 
@@ -322,13 +326,13 @@ public class ImageProcessor extends Handler {
             Point[] points = approx.toArray();
 
             // select biggest 4 angles polygon
-            // if (points.length == 4) {
+//            if (points.length == 4) {
                 Point[] foundPoints = sortPoints(points);
 
                 if (insideArea(foundPoints, size)) {
                     return new Quadrilateral( c , foundPoints );
                 }
-            // }
+//            }
         }
 
         return null;
@@ -496,14 +500,14 @@ public class ImageProcessor extends Handler {
         cannedImage = new Mat(size, CvType.CV_8UC1);
 
         Imgproc.resize(src,resizedImage,size);
-        Imgproc.cvtColor(resizedImage, grayImage, Imgproc.COLOR_RGBA2GRAY, 4);
-        Imgproc.GaussianBlur(grayImage, grayImage, new Size(5, 5), 0);
-        Imgproc.Canny(grayImage, cannedImage, 80, 100, 3, false);
+        Imgproc.cvtColor(resizedImage, grayImage, Imgproc.COLOR_RGB2Lab, 4);
+        Imgproc.GaussianBlur(grayImage, grayImage, new Size(7, 7), 0);
+        Imgproc.Canny(grayImage, cannedImage, 50, 255, 3, false);
 
         ArrayList<MatOfPoint> contours = new ArrayList<MatOfPoint>();
         Mat hierarchy = new Mat();
 
-        Imgproc.findContours(cannedImage, contours, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
+        Imgproc.findContours(cannedImage, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
 
         hierarchy.release();
 

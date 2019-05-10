@@ -110,6 +110,7 @@ public class OpenNoteCameraView extends JavaCameraView implements PictureCallbac
     private View blinkView = null;
     private View mView = null;
     private boolean manualCapture = false;
+    private boolean enableCapture = true;
 
     public static OpenNoteCameraView mThis;
 
@@ -190,6 +191,10 @@ public class OpenNoteCameraView extends JavaCameraView implements PictureCallbac
 
     public void setManualOnly( boolean manualOnly){
         this.manualCapture = manualOnly;
+    }
+
+    public void setEnableCapture(boolean enableCapture){
+      this.enableCapture = enableCapture;
     }
 
     public void setBrightness( double brightness ){
@@ -462,7 +467,7 @@ public class OpenNoteCameraView extends JavaCameraView implements PictureCallbac
         refreshCamera();
     }
 
-    private void refreshCamera() {
+    public void refreshCamera() {
         final boolean torchEnabled = this.enableTorch;
 
         try {
@@ -506,10 +511,9 @@ public class OpenNoteCameraView extends JavaCameraView implements PictureCallbac
             Imgproc.cvtColor(yuv, mat, Imgproc.COLOR_YUV2RGBA_NV21, 4);
 
             yuv.release();
-
-            if(!manualCapture){
-                sendImageProcessorMessage("previewFrame", new PreviewFrame( mat, autoMode, !(autoMode) ));
-            }
+//            if (!manualCapture) {
+              sendImageProcessorMessage("previewFrame", new PreviewFrame(mat, autoMode, !(autoMode), enableCapture, manualCapture));
+//            }
 
         }
 
