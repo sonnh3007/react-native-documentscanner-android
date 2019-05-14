@@ -1,6 +1,6 @@
 {
-  "_from": "nara-react-native-document-scanner-android@^1.0.0",
-  "_id": "nara-react-native-document-scanner-android@1.0.0",
+  "_from": "react-native-documentscanner-android@^1.2.1",
+  "_id": "react-native-documentscanner-android@1.2.1",
   "_inBundle": false,
   "_integrity": "sha512-srvKm48GE4uX3uiJyXT2F/bxtIfcsrpWxUk5536N0/mrheiUIlsF/7nszpU6J6gLNW4VZwGTPzlatfPbScNuwA==",
   "_location": "/react-native-documentscanner-android",
