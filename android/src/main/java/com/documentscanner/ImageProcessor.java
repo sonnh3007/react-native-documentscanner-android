@@ -500,9 +500,9 @@ public class ImageProcessor extends Handler {
         cannedImage = new Mat(size, CvType.CV_8UC1);
 
         Imgproc.resize(src,resizedImage,size);
-        Imgproc.cvtColor(resizedImage, grayImage, Imgproc.COLOR_RGB2Lab, 4);
-        Imgproc.GaussianBlur(grayImage, grayImage, new Size(7, 7), 0);
-        Imgproc.Canny(grayImage, cannedImage, 50, 255, 3, false);
+//        Imgproc.cvtColor(resizedImage, grayImage, Imgproc.COLOR_RGB2Lab, 4);
+        Imgproc.medianBlur(resizedImage, resizedImage, 15);
+        Imgproc.Canny(resizedImage, cannedImage, 0, 100, 3, false);
 
         ArrayList<MatOfPoint> contours = new ArrayList<MatOfPoint>();
         Mat hierarchy = new Mat();
